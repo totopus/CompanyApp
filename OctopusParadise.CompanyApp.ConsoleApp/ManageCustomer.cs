@@ -34,6 +34,44 @@ namespace OctopusParadise.CompanyApp.ConsoleApp
                 Console.WriteLine("Some Error has Occured");
         }
 
+        void RemoveCustomer()
+        {
+            Customer c = new Customer();
+            Console.WriteLine("Enter Id: ");
+            int id = Convert.ToInt32(Console.ReadLine());
+            if (customerRepository.Delete(id) > 0)
+            {
+                Console.WriteLine("Customer Deleted");
+            }
+            else
+            {
+                Console.WriteLine("No Record Found");
+            }
+        }
+
+        void UpdateCustomer()
+            {
+                Customer c = new Customer();
+                Console.WriteLine("Enter Id: ");
+                c.Id = Convert.ToInt32(Console.ReadLine());
+                Console.Write("Enter First Name: ");
+                c.FirstName = Console.ReadLine();
+                Console.Write("Enter Last Name: ");
+                c.LastName = Console.ReadLine();
+                Console.Write("Enter Mobile: ");
+                c.Mobile = Console.ReadLine();
+                Console.Write("Enter Email Address: ");
+                c.Email = Console.ReadLine();
+                Console.Write("Enter City: ");
+                c.City = Console.ReadLine();
+                Console.Write("Enter State: ");
+                c.State = Console.ReadLine();
+                if (customerRepository.Update(c) > 0)
+                    Console.WriteLine("Customer Updated Successfully");
+                else
+                    Console.WriteLine("Some Error has Occured");
+            }
+
         
         void PrintCustomers()
         {
@@ -60,7 +98,7 @@ namespace OctopusParadise.CompanyApp.ConsoleApp
         }
         public void Run()
         {
-            AddCustomer();
+            UpdateCustomer();
         }
     }
 }

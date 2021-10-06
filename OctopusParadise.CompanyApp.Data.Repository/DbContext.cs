@@ -3,15 +3,21 @@ using System.Collections.Generic;
 using System.Text;
 using System.Data;
 using System.Data.SqlClient;
+using Microsoft.Extensions.Configuration.Json;
+using Microsoft.Extensions.Configuration;
 
 namespace OctopusParadise.CompanyApp.Data.Repository
 {
     class DbContext
     {
+        string conn;
+        public DbContext()
+        {
+            conn = new ConfigurationBuilder().AddJsonFile("appSettings.json").Build().GetConnectionString("CompanyDb");
+        }
         public int Execute(string cmdText, Dictionary<string,object> parameters)
         {
-            SqlConnection connection = new SqlConnection(@"Data Source=(local);Initial Catalog=CompanyDB;
-                                                          Integrated Security=True");
+            SqlConnection connection = new SqlConnection(conn);
             SqlCommand cmd = new SqlCommand();
             try
             {
@@ -41,8 +47,8 @@ namespace OctopusParadise.CompanyApp.Data.Repository
 
         public DataTable Query(string cmdText, Dictionary<string,object> parameters)
         {
-            SqlConnection connection = new SqlConnection(@"Data Source=(local);Initial Catalog=CompanyDB;
-                                                          Integrated Security=True");
+            
+            SqlConnection connection = new SqlConnection(conn);
             SqlCommand cmd = new SqlCommand();
             try
             {
